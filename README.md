@@ -108,9 +108,11 @@ Under **Authentication** → **Providers**, enable **Email** (and optionally adj
 ## 3. Install and run
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
+
+(`npm install` / `npm run dev` also work, but keep **`pnpm-lock.yaml`** committed and in sync if you use pnpm on Vercel.)
 
 Open [http://localhost:3000](http://localhost:3000). Sign up or sign in, create folders and cards, then use **Start Quiz** — the deck is shuffled once when the quiz opens. You can reshuffle or reset order from the quiz header.
 
@@ -131,6 +133,20 @@ Initialization was specified as `supabaseClient.js` in the brief; this repo uses
 ## Build
 
 ```bash
-npm run build
-npm start
+pnpm run build
+pnpm start
 ```
+
+(If you use npm instead: `npm run build` / `npm start`.)
+
+## Deploying (e.g. Vercel)
+
+This repo includes **`pnpm-lock.yaml`**. Vercel runs **`pnpm install` with a frozen lockfile**, so after you change **`package.json`** you must refresh the lockfile and commit it:
+
+```bash
+pnpm install
+git add pnpm-lock.yaml
+git commit -m "chore: sync pnpm lockfile"
+```
+
+If you add dependencies with **npm**, run **`pnpm install`** afterward (or use **`npx pnpm@10 install`**) so `pnpm-lock.yaml` stays in sync—otherwise the build fails with `ERR_PNPM_OUTDATED_LOCKFILE`.
